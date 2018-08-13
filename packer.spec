@@ -25,8 +25,9 @@ ExclusiveArch: %{ix86} x86_64 ${arm} aarch64
 # Converting key from ASCII armored format
 keyring=`mktemp --tmpdir keyring.XXXXXXXX.gpg`
 gpg --keyring "$keyring" --import %{SOURCE2}
+
 # Check signature
-gpg --keyring "$keyring" %{SOURCE1} %{SOURCE0}
+gpg --keyring "$keyring" --verify %{SOURCE1} %{SOURCE0}
 
 # Cleanup
 rm -f "$keyring"
