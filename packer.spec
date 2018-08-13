@@ -4,7 +4,7 @@
 
 Name:     packer
 %if %{undefined bin_version}
-Version:  1.2.5
+Version:  1.2.4
 %else
 Version: %{bin_version}
 %endif
