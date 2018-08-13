@@ -15,12 +15,14 @@ URL:      https://www.packer.io/
 # Download this file from the packer website
 # Ensure that you verify it with the hashicorp private key before allowing this to be built
 Source0: %{mirror_url %{file SHA256SUMS}}
-# Signature: %{mirror_url %{file SHA256SUMS.sig}}
+Source1: %{mirror_url %{file SHA256SUMS.sig}}
+Source2: gpgkey-hashicorp.gpg
 
 BuildRequires: coreutils unzip
 ExclusiveArch: %{ix86} x86_64 ${arm} aarch64
 
 %prep
+gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %setup -c -T
 %global spec_build_dir %%{_builddir}/%%{name}-%%{version}
 cp -T %{_sourcedir}/%{file SHA256SUMS} %{spec_build_dir}/sha256sum.txt
