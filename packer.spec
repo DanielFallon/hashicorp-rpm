@@ -22,7 +22,15 @@ BuildRequires: coreutils unzip
 ExclusiveArch: %{ix86} x86_64 ${arm} aarch64
 
 %prep
-gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+# Converting key from ASCII armored format
+keyring=`mktemp --tmpdir keyring.XXXXXXXX.gpg`
+gpg --keyring "$keyring" --import %{SOURCE2}
+# Check signature
+gpg --keyring "$keyring" %{SOURCE1} %{SOURCE0}
+
+# Cleanup
+rm -f "$keyring"
+
 %setup -c -T
 %global spec_build_dir %%{_builddir}/%%{name}-%%{version}
 cp -T %{_sourcedir}/%{file SHA256SUMS} %{spec_build_dir}/sha256sum.txt
