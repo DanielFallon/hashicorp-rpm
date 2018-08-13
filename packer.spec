@@ -18,7 +18,7 @@ Source0: %{mirror_url %{file SHA256SUMS}}
 Source1: %{mirror_url %{file SHA256SUMS.sig}}
 Source2: gpgkey-hashicorp.gpg
 
-BuildRequires: coreutils unzip
+BuildRequires: coreutils gpg unzip
 ExclusiveArch: %{ix86} x86_64 ${arm} aarch64
 
 %prep
